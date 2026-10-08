@@ -1,7 +1,7 @@
 name: Daily Video
 on:
   schedule:
-    - cron: '30 0 * * *'  # Roz subah 6 baje IST
+    - cron: '30 0 * * *'
   workflow_dispatch:
 jobs:
   build:
@@ -11,6 +11,7 @@ jobs:
       - name: Make Video
         run: |
           ffmpeg -f lavfi -i color=c=green:s=1280x720:d=8 -vf format=yuv420p auto_video.mp4
+          ls -lh auto_video.mp4
       - name: Upload Video
         uses: actions/upload-artifact@v4
         with:
