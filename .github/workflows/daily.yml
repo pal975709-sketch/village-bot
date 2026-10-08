@@ -8,9 +8,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Install ffmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
       - name: Make Video
         run: |
-          ffmpeg -f lavfi -i color=c=green:s=1280x720:d=8 -vf format=yuv420p auto_video.mp4
+          ffmpeg -y -f lavfi -i color=c=green:s=1280x720:r=30:d=8 -c:v libx264 -pix_fmt yuv420p -t 8 auto_video.mp4
           ls -lh auto_video.mp4
       - name: Upload Video
         uses: actions/upload-artifact@v4
