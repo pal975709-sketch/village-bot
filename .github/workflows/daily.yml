@@ -8,8 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
-      - run: pip install imageio numpy imageio-ffmpeg
-      - run: python bot.py
+      - name: Make Video
+        run: |
+          ffmpeg -f lavfi -i color=c=green:s=1280x720:d=8 -vf format=yuv420p auto_video.mp4
+          ls -lh auto_video.mp4
